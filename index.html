@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#120d24" />
+    <title>A Little Surprise</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
 
+    <main class="app-shell">
+      <section id="intro" class="screen active">
+        <div class="glass-card intro-card">
+          <div class="sparkle">✦</div>
+          <p class="eyebrow">✨ A LITTLE SURPRISE ✨</p>
+          <h1>This page is made for <span>YOU</span> ❤️</h1>
+          <p class="subtext">Enter your birthday to unlock your surprise.</p>
+
+          <div class="date-row">
+            <div class="field-wrap">
+              <label for="birthMonth">Month</label>
+              <select id="birthMonth">
+                <option value="">Month</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+
+            <div class="field-wrap">
+              <label for="birthDay">Day</label>
+              <select id="birthDay">
+                <option value="">Day</option>
+              </select>
+            </div>
+          </div>
+
+          <p id="dateError" class="error-message" aria-live="polite"></p>
+          <button id="startBtn" class="primary-btn">START</button>
+        </div>
+      </section>
+
+      <section id="surprise" class="screen">
+        <div class="glass-card surprise-card">
+          <p class="eyebrow">🫂 FOR YOU</p>
+          <h2 id="friendName">Friend Name</h2>
+
+          <div class="music-panel">
+            <div class="music-header">🎵 SONG</div>
+            <h3 id="songTitle">Song Title</h3>
+            <p id="songArtist">Artist Name</p>
+            <p id="songAlbum">Album Name</p>
+
+            <audio id="localAudio" controls preload="none"></audio>
+
+            <div class="music-actions">
+              <button id="playLocalBtn" class="secondary-btn small-btn">▶ Play</button>
+              <button id="openSongBtn" class="secondary-btn small-btn">Search Song</button>
+            </div>
+          </div>
+
+          <div class="quote-block">
+            <p class="mini-label">✨ QUOTE</p>
+            <p id="quoteText">Quote</p>
+          </div>
+
+          <div class="message-block">
+            <p class="mini-label">💌 MESSAGE</p>
+            <p id="messageText">Message</p>
+          </div>
+
+          <button id="continueBtn" class="primary-btn">CONTINUE →</button>
+        </div>
+      </section>
+
+      <section id="memories" class="screen">
+        <div class="glass-card memories-card">
+          <p class="eyebrow">📸 MEMORIES</p>
+          <h2>Some favorite moments</h2>
+
+          <div class="gallery">
+            <figure class="memory-item">
+              <img src="images/photo1.svg" alt="Memory 1" />
+              <figcaption>Late-night talks and nonstop laughter</figcaption>
+            </figure>
+            <figure class="memory-item">
+              <img src="images/photo2.svg" alt="Memory 2" />
+              <figcaption>Random conversations that became memories</figcaption>
+            </figure>
+            <figure class="memory-item">
+              <img src="images/photo3.svg" alt="Memory 3" />
+              <figcaption>Small moments that meant a lot</figcaption>
+            </figure>
+            <figure class="memory-item">
+              <img src="images/photo4.svg" alt="Memory 4" />
+              <figcaption>Friendship, chaos, and pure comfort</figcaption>
+            </figure>
+          </div>
+
+          <button id="nextBtn" class="primary-btn">NEXT →</button>
+        </div>
+      </section>
+
+      <section id="final" class="screen final-screen">
+        <div class="glass-card final-card">
+          <p class="eyebrow">❤️ ONE LAST THING</p>
+          <p class="final-copy">One fingerprint with you, countless memories with you.</p>
+          <p class="final-copy">I'm always disturbing you,<br />and you have absolutely no option. 😂❤️</p>
+          <p class="final-copy">Through all the random conversations,<br />annoying moments, laughter and chaos,<br />I'm really glad you are part of my life.</p>
+          <div class="final-icons">🫂 ❤️ ✨</div>
+          <h3>Thank you for being you.</h3>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
