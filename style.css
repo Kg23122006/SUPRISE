@@ -1,238 +1,909 @@
-/* =========================================================
-   FRIENDSHIP SURPRISE WEBSITE
-   ========================================================= */
+:root {
+    --white: #ffffff;
+    --pink: #f8c8dc;
+    --pink-dark: #d96b9b;
+    --lavender: #d9d0f5;
+    --purple: #8b72c7;
+    --text: #3c3347;
+    --muted: #817688;
+    --glass: rgba(255, 255, 255, 0.68);
+    --border: rgba(255, 255, 255, 0.85);
+    --shadow: 0 25px 70px rgba(119, 83, 138, 0.15);
+}
 
-const birthdayData = {
-  "03-19": {
-    name: "DivyaShree.D (loosu)",
-    message: "I'm genuinely grateful for every laugh, every random conversation, every annoying moment and every memory we've created together. 🫂❤️",
-    quote: "I feel so lucky and grateful to have you as my best friend. 🫂✨\nYou have this beautiful way of making even the most ordinary days feel a little more special. 💖🥹\nI’m genuinely grateful for every laugh, every memory, and every moment we share. ✨",
-    song: {
-      title: "Kulirudha Pulla",
-      artist: "Sid Sriram & Sangeetha Karuppiah",
-      album: "Oththa Seruppu Size 7"
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", "DM Sans", sans-serif;
+    color: #f8f2ff;
+    overflow-x: hidden;
+    background:
+        radial-gradient(circle at top left, rgba(238, 166, 206, 0.28), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(142, 113, 255, 0.22), transparent 34%),
+        linear-gradient(135deg, #120d24, #1c1430 45%, #100c1d);
+}
+
+button,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.app-shell {
+    position: relative;
+    min-height: 100vh;
+}
+
+.bg-glow {
+    position: fixed;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.45;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.glow-1 {
+    background: rgba(255, 166, 214, 0.35);
+    top: 6%;
+    left: 6%;
+}
+
+.glow-2 {
+    background: rgba(129, 100, 255, 0.28);
+    right: 10%;
+    bottom: 8%;
+}
+
+.screen {
+    position: fixed;
+    inset: 0;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(22px) scale(0.99);
+    transition: opacity 0.7s ease, transform 0.7s ease, visibility 0.7s ease;
+    overflow-y: auto;
+    z-index: 1;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateY(0) scale(1);
+}
+
+.glass-card {
+    width: 100%;
+    max-width: 560px;
+    padding: 36px 25px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 28px 80px rgba(6, 3, 16, 0.42);
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.intro-card {
+    padding-top: 45px;
+}
+
+.surprise-card,
+.memories-card,
+.final-card {
+    max-width: 640px;
+}
+
+.sparkle {
+    font-size: 42px;
+    margin-bottom: 15px;
+
+    animation: sparkle 2s infinite ease-in-out;
+}
+
+.eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 4px;
+
+    color: var(--pink-dark);
+
+    margin-bottom: 15px;
+}
+
+h1,
+h2 {
+    font-family: "Playfair Display", serif;
+}
+
+h1 {
+    font-size: clamp(38px, 10vw, 60px);
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+h1 span {
+    color: var(--pink-dark);
+}
+
+h2 {
+    font-size: clamp(27px, 7vw, 38px);
+    line-height: 1.2;
+
+    margin-bottom: 25px;
+}
+
+.subtext {
+    color: var(--muted);
+    margin-bottom: 30px;
+}
+
+.dob-box {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.dob-box label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.field-wrap {
+    text-align: left;
+}
+
+.field-wrap label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+select,
+textarea {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 15px;
+    color: #f8f5ff;
+    outline: none;
+    transition: 0.3s;
+}
+
+select:focus,
+textarea:focus {
+    border-color: var(--pink-dark);
+
+    box-shadow: 0 0 0 4px rgba(217, 107, 155, 0.1);
+}
+
+.primary-btn,
+.secondary-btn {
+    width: 100%;
+    border: none;
+    border-radius: 999px;
+    padding: 16px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.primary-btn {
+    color: white;
+    background: linear-gradient(135deg, #ef6aa5, #845bff);
+    box-shadow: 0 12px 30px rgba(239, 106, 165, 0.3);
+    margin-top: 25px;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 17px 35px rgba(217, 107, 155, 0.35);
+}
+
+.primary-btn:active {
+    transform: scale(0.97);
+}
+
+.secondary-btn {
+    margin-top: 14px;
+    color: #fdf2ff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.small-btn {
+    width: auto;
+    min-width: 120px;
+    padding: 12px 18px;
+    font-size: 0.78rem;
+    margin-top: 0;
+}
+
+.section-icon {
+    font-size: 38px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.music-panel {
+    margin: 24px 0 18px;
+    padding: 20px 18px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: left;
+}
+
+.music-header,
+.mini-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #f0c9dc;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.music-panel h3 {
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    margin: 0 0 8px;
+    color: #fff5fd;
+    font-family: "Georgia", "Times New Roman", serif;
+}
+
+.music-panel p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.music-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+audio {
+    width: 100%;
+    margin-top: 16px;
+    filter: saturate(1.1);
+}
+
+.quote-block,
+.message-block {
+    margin-top: 22px;
+    padding: 18px 16px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: left;
+}
+
+.quote-block p:last-child,
+.message-block p:last-child {
+    color: #f5f1ff;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 24px 0 18px;
+}
+
+.memory-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.memory-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.memory-item figcaption {
+    padding: 12px 10px 14px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+}
+
+.final-screen {
+    background: linear-gradient(135deg, #1a1225, #2b1f36 45%, #130d21);
+    color: white;
+}
+
+.final-card {
+    text-align: center;
+    padding: 34px 22px;
+}
+
+.final-copy {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-top: 14px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.final-icons {
+    font-size: 2rem;
+    letter-spacing: 0.3em;
+    margin: 18px 0 12px;
+}
+
+.final-card h3 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-top: 10px;
+    color: #fff3fa;
+    font-family: "Georgia", "Times New Roman", serif;
+}
+
+.quote-mark {
+    position: absolute;
+
+    top: 3px;
+    left: 15px;
+
+    font-size: 55px;
+
+    color: var(--pink-dark);
+
+    opacity: 0.4;
+}
+
+.quote-mark.end {
+    top: auto;
+    left: auto;
+    right: 15px;
+    bottom: -15px;
+}
+
+.song-card {
+    padding: 20px;
+
+    border-radius: 25px;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    border: 1px solid rgba(255,255,255,0.8);
+}
+
+.album-container {
+    position: relative;
+
+    width: 190px;
+    height: 190px;
+
+    margin: auto;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 15px 40px rgba(60, 51, 71, 0.18);
+}
+
+.album-container img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.music-loading {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(255,255,255,0.82);
+
+    font-size: 13px;
+}
+
+.music-loading.hidden {
+    display: none;
+}
+
+.song-info {
+    margin-top: 20px;
+}
+
+.song-info h3 {
+    font-family: "Playfair Display", serif;
+
+    font-size: 25px;
+}
+
+.song-info p {
+    margin-top: 5px;
+
+    color: var(--pink-dark);
+
+    font-weight: 600;
+}
+
+.album-name {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.spotify-player {
+    margin-top: 20px;
+
+    overflow: hidden;
+
+    border-radius: 15px;
+}
+
+.spotify-player iframe {
+    width: 100%;
+    height: 152px;
+
+    border: none;
+
+    border-radius: 15px;
+}
+
+.quiz-card {
+    max-width: 560px;
+}
+
+.quiz-progress {
+    text-align: left;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    color: var(--purple);
+
+    margin-bottom: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+
+    background: rgba(139,114,199,0.12);
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    margin-bottom: 35px;
+}
+
+#progressFill {
+    height: 100%;
+
+    width: 25%;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--pink-dark),
+            var(--purple)
+        );
+
+    transition: width 0.5s ease;
+}
+
+textarea {
+    resize: vertical;
+
+    min-height: 130px;
+
+    line-height: 1.5;
+}
+
+.rating-grid {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.rating-btn {
+    height: 48px;
+
+    border: 1px solid rgba(139,114,199,0.2);
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,0.75);
+
+    color: var(--text);
+
+    font-weight: 700;
+
+    transition: 0.25s;
+}
+
+.rating-btn:hover,
+.rating-btn.selected {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-dark),
+            var(--purple)
+        );
+
+    transform: translateY(-3px);
+}
+
+.reaction {
+    min-height: 25px;
+
+    margin-top: 18px;
+
+    color: var(--pink-dark);
+
+    font-weight: 600;
+}
+
+.choice-btn {
+    width: 100%;
+
+    padding: 16px;
+
+    margin-top: 12px;
+
+    border-radius: 999px;
+
+    border: 1px solid rgba(139,114,199,0.2);
+
+    background: rgba(255,255,255,0.75);
+
+    color: var(--text);
+
+    font-weight: 700;
+
+    transition: 0.25s;
+}
+
+.choice-btn:hover,
+.choice-btn.selected {
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-dark),
+            var(--purple)
+        );
+
+    color: white;
+
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error-message {
+    color: #d94f73;
+
+    font-size: 13px;
+
+    min-height: 20px;
+
+    margin-top: 8px;
+}
+
+/* ================= FINAL ================= */
+
+.final-screen {
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(139,114,199,0.3),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #241d32,
+            #392542,
+            #1e1828
+        );
+
+    color: white;
+}
+
+.final-content {
+    width: 100%;
+    max-width: 560px;
+
+    text-align: center;
+}
+
+.final-screen .eyebrow {
+    color: #f4bdd5;
+}
+
+.fingerprint-wrapper {
+    position: relative;
+
+    width: 210px;
+    height: 210px;
+
+    margin: 20px auto 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fingerprint {
+    position: relative;
+
+    width: 155px;
+    height: 190px;
+
+    border: 4px solid rgba(255,255,255,0.8);
+
+    border-radius: 50% 50% 45% 45%;
+
+    transform: rotate(8deg);
+
+    box-shadow:
+        0 0 25px rgba(248,200,220,0.5),
+        inset 0 0 20px rgba(248,200,220,0.15);
+
+    animation: fingerprintPulse 2.5s infinite ease-in-out;
+}
+
+.fingerprint::before,
+.fingerprint::after,
+.fingerprint span::before,
+.fingerprint span::after {
+    content: "";
+
+    position: absolute;
+
+    border: 3px solid rgba(255,255,255,0.65);
+
+    border-radius: 50%;
+}
+
+.fingerprint::before {
+    inset: 12px;
+
+    border-bottom-color: transparent;
+}
+
+.fingerprint::after {
+    inset: 25px;
+
+    border-top-color: transparent;
+}
+
+.fingerprint span::before {
+    inset: 39px;
+
+    border-left-color: transparent;
+}
+
+.fingerprint span::after {
+    inset: 53px;
+
+    border-right-color: transparent;
+}
+
+.fingerprint-heart {
+    position: absolute;
+
+    font-size: 28px;
+
+    animation: heartPulse 1.8s infinite;
+}
+
+.final-messages p {
+    opacity: 0;
+
+    transform: translateY(15px);
+
+    animation: revealMessage 0.8s forwards;
+
+    line-height: 1.6;
+
+    margin-bottom: 16px;
+
+    color: rgba(255,255,255,0.9);
+}
+
+.final-messages p:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.final-messages p:nth-child(2) {
+    animation-delay: 1.5s;
+}
+
+.final-messages p:nth-child(3) {
+    animation-delay: 2.8s;
+}
+
+.final-messages p:nth-child(4) {
+    animation-delay: 3.7s;
+}
+
+.final-messages p:nth-child(5) {
+    animation-delay: 4.8s;
+}
+
+.final-messages p:nth-child(6) {
+    animation-delay: 5.8s;
+}
+
+.no-option {
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: #f8c8dc !important;
+}
+
+.always {
+    font-family: "Playfair Display", serif;
+
+    font-size: 32px;
+
+    color: white !important;
+}
+
+/* ================= FLOATING EFFECTS ================= */
+
+.float {
+    position: fixed;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation: floatUp linear forwards;
+
+    opacity: 0.6;
+}
+
+@keyframes sparkle {
+
+    0%, 100% {
+        transform: scale(1) rotate(0);
     }
-  },
-  "11-01": {
-    name: "Aishvariya.S",
-    message: "Some friendships quietly become one of the best parts of life, and you are one of the best parts of mine. 🫶✨",
-    quote: "Some friendships quietly become one of the best parts of life. 🫶",
-    song: {
-      title: "Aley Aley Dhostu",
-      artist: "Yuvan Shankar Raja",
-      album: "Kanda Naal Mudha"
+
+    50% {
+        transform: scale(1.2) rotate(10deg);
     }
-  },
-  "08-16": {
-    name: "Sanjay.S",
-    message: "You make life feel lighter, brighter, and a little more fun. I’m so glad you are in my life. ❤️",
-    quote: "Some people enter your life and somehow make everything brighter. ❤️",
-    song: {
-      title: "Jigiri Dosthu",
-      artist: "Jaya Moorthy, Anthakudi Ilayaraja",
-      album: "Namma Veettu Pillai"
+}
+
+@keyframes fingerprintPulse {
+
+    0%, 100% {
+        transform: rotate(8deg) scale(1);
+
+        box-shadow:
+            0 0 20px rgba(248,200,220,0.3);
     }
-  },
-  "10-06": {
-    name: "Dhilip",
-    message: "A good friend is rare, and I’m lucky to have you in my life. Keep being your amazing self. 🫶",
-    quote: "Some people enter your life and somehow make everything brighter. ❤️",
-    song: {
-      title: "Kongunatttu Thendraluku",
-      artist: "",
-      album: ""
+
+    50% {
+        transform: rotate(8deg) scale(1.06);
+
+        box-shadow:
+            0 0 50px rgba(248,200,220,0.7);
     }
-  },
-  "03-11": {
-    name: "Akshya P (Vennamavaley)",
-    message: "I’m grateful for every laugh, every random conversation, every annoying moment and every memory we’ve made together. 🫂❤️",
-    quote: "I feel so lucky and grateful to have you as my friend. 🫂✨\nYou have this beautiful way of making even the most ordinary days feel a little more special. 💖🥹\nI’m genuinely grateful for every laugh, every memory, and every moment we share. ✨\nI'm daily waiting for your message. 🫶",
-    song: {
-      title: "She Is a Fantasy",
-      artist: "",
-      album: ""
+}
+
+@keyframes heartPulse {
+
+    0%, 100% {
+        transform: scale(1);
     }
-  },
-  "08-06": {
-    name: "Rajkumar",
-    message: "You’re one of those people who makes life feel a lot easier and a lot more fun. I appreciate you. 💛",
-    quote: "Some people enter your life and somehow make everything brighter. ❤️",
-    song: {
-      title: "Kongunatttu Thendraluku",
-      artist: "",
-      album: ""
+
+    50% {
+        transform: scale(1.3);
     }
-  },
-  "04-17": {
-    name: "Sujan S",
-    message: "It’s rare to find someone who feels like home in the middle of chaos, and you do. 🫶",
-    quote: "Some friendships quietly become one of the best parts of life. 🫶",
-    song: {
-      title: "Jigiri Dosthu",
-      artist: "Jaya Moorthy, Anthakudi Ilayaraja",
-      album: "Namma Veettu Pillai"
+}
+
+@keyframes revealMessage {
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-  }
-};
-
-const defaultMessage = "I'm genuinely grateful for every laugh, every random conversation, every annoying moment and every memory we've created together. 🫂❤️";
-
-let selectedBirthday = null;
-let currentSong = null;
-
-const screens = document.querySelectorAll(".screen");
-const birthMonth = document.getElementById("birthMonth");
-const birthDay = document.getElementById("birthDay");
-const dateError = document.getElementById("dateError");
-const startBtn = document.getElementById("startBtn");
-const friendName = document.getElementById("friendName");
-const songTitle = document.getElementById("songTitle");
-const songArtist = document.getElementById("songArtist");
-const songAlbum = document.getElementById("songAlbum");
-const quoteText = document.getElementById("quoteText");
-const messageText = document.getElementById("messageText");
-const continueBtn = document.getElementById("continueBtn");
-const nextBtn = document.getElementById("nextBtn");
-const playLocalBtn = document.getElementById("playLocalBtn");
-const openSongBtn = document.getElementById("openSongBtn");
-const localAudio = document.getElementById("localAudio");
-
-function showScreen(id) {
-  screens.forEach((screen) => screen.classList.remove("active"));
-  const target = document.getElementById(id);
-  if (target) {
-    target.classList.add("active");
-  }
 }
 
-function populateDayOptions() {
-  const month = birthMonth.value;
-  const selectedValue = birthDay.value;
-  const daysInMonth = month ? new Date(2024, Number(month), 0).getDate() : 31;
+@keyframes floatUp {
 
-  birthDay.innerHTML = '<option value="">Day</option>';
+    0% {
+        transform:
+            translateY(110vh)
+            rotate(0deg);
+    }
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const option = document.createElement("option");
-    option.value = String(day).padStart(2, "0");
-    option.textContent = String(day);
-    if (option.value === selectedValue) option.selected = true;
-    birthDay.appendChild(option);
-  }
+    100% {
+        transform:
+            translateY(-120px)
+            rotate(360deg);
+    }
 }
 
-function formatText(value) {
-  return (value || "").replace(/\n/g, "<br>");
+@media (min-width: 700px) {
+
+    .glass-card {
+        padding: 50px 45px;
+    }
+
+    .intro-card {
+        padding: 60px;
+    }
+
+    .screen {
+        padding: 40px;
+    }
+
 }
-
-function setFriendContent(friend) {
-  if (!friend) return;
-
-  friendName.textContent = friend.name;
-  songTitle.textContent = friend.song?.title || "Song Title";
-  songArtist.textContent = friend.song?.artist || "Artist Name";
-  songAlbum.textContent = friend.song?.album || "Album Name";
-  quoteText.innerHTML = formatText(friend.quote);
-  messageText.innerHTML = formatText(friend.message || defaultMessage);
-
-  currentSong = friend.song;
-  if (localAudio) {
-    localAudio.pause();
-    localAudio.currentTime = 0;
-    localAudio.removeAttribute("src");
-    localAudio.load();
-  }
-}
-
-function validateBirthday(month, day) {
-  if (!month || !day) return false;
-  const monthNumber = Number(month);
-  const dayNumber = Number(day);
-  const daysInMonth = new Date(2024, monthNumber, 0).getDate();
-  return dayNumber >= 1 && dayNumber <= daysInMonth;
-}
-
-async function hasLocalSong() {
-  return false;
-}
-
-async function handleStart() {
-  const month = birthMonth.value;
-  const day = birthDay.value;
-
-  if (!validateBirthday(month, day)) {
-    dateError.textContent = "Please enter a valid birthday. ❤️";
-    return;
-  }
-
-  selectedBirthday = `${month}-${day}`;
-  const friend = birthdayData[selectedBirthday];
-
-  if (!friend) {
-    dateError.textContent = "Looks like this surprise isn't prepared for this date yet. ❤️";
-    return;
-  }
-
-  dateError.textContent = "";
-  setFriendContent(friend);
-
-  const localSongAvailable = await hasLocalSong();
-  if (localSongAvailable && localAudio) {
-    localAudio.src = "music/song.mp3";
-    localAudio.load();
-    localAudio.play().catch(() => {});
-  }
-
-  showScreen("surprise");
-}
-
-if (localAudio) {
-  localAudio.removeAttribute("src");
-  localAudio.load();
-}
-
-function openSongSearch() {
-  if (!currentSong) return;
-
-  const query = [currentSong.title, currentSong.artist, currentSong.album].filter(Boolean).join(" ");
-  const url = `https://open.spotify.com/search/${encodeURIComponent(query)}`;
-  window.open(url, "_blank", "noopener,noreferrer");
-}
-
-function toggleLocalAudio() {
-  if (!localAudio || !localAudio.src) {
-    openSongSearch();
-    return;
-  }
-
-  if (localAudio.paused) {
-    localAudio.play().catch(() => {
-      openSongSearch();
-    });
-  } else {
-    localAudio.pause();
-  }
-}
-
-function createFloatingElement() {
-  const element = document.createElement("div");
-  element.className = "float";
-  const symbols = ["❤️", "💗", "💜", "✨", "🫶", "♡"];
-  element.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-  element.style.left = `${Math.random() * 100}vw`;
-  element.style.fontSize = `${12 + Math.random() * 16}px`;
-  element.style.animationDuration = `${7 + Math.random() * 8}s`;
-  document.body.appendChild(element);
-  setTimeout(() => element.remove(), 16000);
-}
-
-birthMonth.addEventListener("change", populateDayOptions);
-startBtn.addEventListener("click", handleStart);
-continueBtn.addEventListener("click", () => showScreen("memories"));
-nextBtn.addEventListener("click", () => showScreen("final"));
-playLocalBtn.addEventListener("click", toggleLocalAudio);
-openSongBtn.addEventListener("click", openSongSearch);
-
-populateDayOptions();
-showScreen("intro");
-setInterval(createFloatingElement, 900);
